@@ -18,98 +18,62 @@ const response = await fetch(
 /* fetch('https://api.themoviedb.org/3/movie/787699/videos?language=en-US', options) */
 const data = await response.json();
 console.log(data);
+/*   backdrop_path: '/4MCKNAc6AbWjEsM2h9Xc29owo4z.jpg', */
 ---
 
 <Layout title="Welcome to Astro.">
-	<div class="flex flex-wrap gap-5 justify-center">
-		{
-			data.results.map((movie: any) => {
-				if (!movie.poster_path) {
-					return;
-				}
-				return (
-					<div>
-						<img
-							class="h-[400px]"
-							src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
-							alt=""
-						/>
-						<h6 class="text-white">{movie.original_title}</h6>
-					</div>
-				);
-			})
-		}
-		<div>
-			<!-- de la respuesta de video es la key  "key": "d2lVg-b_E2g",  y validaria    "type": "Trailer",-->
-			<iframe
-				width="560"
-				height="315"
-				src="https://www.youtube.com/embed/wYmtRhKvmVE"
-				title="YouTube video player"
-				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-				allowfullscreen></iframe>
+	<div
+		class="bg-cover flex justify-start items-end p-20"
+		style={`background-image: url(https://image.tmdb.org/t/p/original/${data.results[1].backdrop_path}); height: 700px`}
+	>
+		<!-- CABECERA -->
+		<!-- 	<img
+			src={`https://image.tmdb.org/t/p/original/${data.results[1].backdrop_path}`}
+			alt=""
+		/> -->
+		<div
+			class="text-white left-10 bottom-16 max-w-96 flex flex-col items-start gap-0"
+		>
+			<h1 class="text-8xl">
+				{data.results[1].original_title}
+			</h1>
+			<p>
+				{data.results[1].overview}
+			</p>
 		</div>
 	</div>
 </Layout>
-
-<style>
-	main {
-		margin: auto;
-		padding: 1rem;
-		width: 800px;
-		max-width: calc(100% - 2rem);
-		color: white;
-		font-size: 20px;
-		line-height: 1.6;
+<div class="flex flex-wrap gap-5 justify-center">
+	{
+		data.results.map((movie: any) => {
+			if (!movie.poster_path) {
+				return;
+			}
+			return (
+				<div>
+					<img
+						class="h-[400px] rounded-lg"
+						src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+						alt=""
+					/>
+					<div>
+						<h6 class="text-gray-600 text-sm">{`${movie.original_title.slice(
+							0,
+							20
+						)} - ${movie.release_date}`}</h6>
+					</div>
+				</div>
+			);
+		})
 	}
-	.astro-a {
-		position: absolute;
-		top: -32px;
-		left: 50%;
-		transform: translatex(-50%);
-		width: 220px;
-		height: auto;
-		z-index: -1;
-	}
-	h1 {
-		font-size: 4rem;
-		font-weight: 700;
-		line-height: 1;
-		text-align: center;
-		margin-bottom: 1em;
-	}
-	.text-gradient {
-		background-image: var(--accent-gradient);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-size: 400%;
-		background-position: 0%;
-	}
-	.instructions {
-		margin-bottom: 2rem;
-		border: 1px solid rgba(var(--accent-light), 25%);
-		background: linear-gradient(
-			rgba(var(--accent-dark), 66%),
-			rgba(var(--accent-dark), 33%)
-		);
-		padding: 1.5rem;
-		border-radius: 8px;
-	}
-	.instructions code {
-		font-size: 0.8em;
-		font-weight: bold;
-		background: rgba(var(--accent-light), 12%);
-		color: rgb(var(--accent-light));
-		border-radius: 4px;
-		padding: 0.3em 0.4em;
-	}
-	.instructions strong {
-		color: rgb(var(--accent-light));
-	}
-	.link-card-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
-		gap: 2rem;
-		padding: 0;
-	}
-</style>
+</div>
+<div class="bg-purple-950 p-5 m-10 rounded-lg">
+	<!-- de la respuesta de video es la key  "key": "d2lVg-b_E2g",  y validaria    "type": "Trailer",-->
+	<iframe
+		width="560"
+		height="315"
+		src="https://www.youtube.com/embed/wYmtRhKvmVE"
+		title="YouTube video player"
+		allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+		allowfullscreen></iframe>
+</div>
