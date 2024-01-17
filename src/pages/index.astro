@@ -1,79 +1,20 @@
 ---
+import type { Movie } from "../interfaces/movies_interface";
 import Layout from "../layouts/Layout.astro";
+import Card from "../components/Card.astro";
+import { getMovies } from "../api/upcomingMovies";
 
-const options = {
-	method: "GET",
-	headers: {
-		accept: "application/json",
-		Authorization:
-			"Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmYWIwYzI4ZDZmNjk5YjRkMzAwZTBkOTQ2NDQ1Yjc0OSIsInN1YiI6IjY1YTZiOGRiZjVmMWM1MDExZjAxYTg5OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.DvOSLPkDDxvQnqoTJPUcCNY6DExToLvXMhN-qurs5wg",
-	},
-};
-
-const response = await fetch(
-	"https://api.themoviedb.org/3/movie/upcoming?language=es-US&page=1",
-	options
-);
-/* FETCH PARA TRAER LOS VIDEOS DE UNA PELICULA EN CONCRETO CON SU ID */
-/* fetch('https://api.themoviedb.org/3/movie/787699/videos?language=en-US', options) */
-const data = await response.json();
-console.log(data);
-/*   backdrop_path: '/4MCKNAc6AbWjEsM2h9Xc29owo4z.jpg', */
+const movies = await getMovies();
 ---
 
 <Layout title="Welcome to Astro.">
-	<div
-		class="bg-cover flex justify-start items-end p-20"
-		style={`background-image: url(https://image.tmdb.org/t/p/original/${data.results[1].backdrop_path}); height: 700px`}
-	>
-		<!-- CABECERA -->
-		<!-- 	<img
-			src={`https://image.tmdb.org/t/p/original/${data.results[1].backdrop_path}`}
-			alt=""
-		/> -->
-		<div
-			class="text-white left-10 bottom-16 max-w-96 flex flex-col items-start gap-0"
-		>
-			<h1 class="text-8xl">
-				{data.results[1].original_title}
-			</h1>
-			<p>
-				{data.results[1].overview}
-			</p>
-		</div>
-	</div>
+	<header class="py-8">
+		<h1 class="font-bold text-2xl text-white">Astroflix</h1>
+	</header>
+
+	<main class="container mx-auto">
+		<ul role="list" class="grid lg:grid-cols-5 grid-cols-2 gap-4">
+			{movies?.map((movie: Movie) => <Card movie={movie} />)}
+		</ul>
+	</main>
 </Layout>
-<div class="flex flex-wrap gap-5 justify-center">
-	{
-		data.results.map((movie: any) => {
-			if (!movie.poster_path) {
-				return;
-			}
-			return (
-				<div>
-					<img
-						class="h-[400px] rounded-lg"
-						src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
-						alt=""
-					/>
-					<div>
-						<h6 class="text-gray-600 text-sm">{`${movie.original_title.slice(
-							0,
-							20
-						)} - ${movie.release_date}`}</h6>
-					</div>
-				</div>
-			);
-		})
-	}
-</div>
-<div class="bg-purple-950 p-5 m-10 rounded-lg">
-	<!-- de la respuesta de video es la key  "key": "d2lVg-b_E2g",  y validaria    "type": "Trailer",-->
-	<iframe
-		width="560"
-		height="315"
-		src="https://www.youtube.com/embed/wYmtRhKvmVE"
-		title="YouTube video player"
-		allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-		allowfullscreen></iframe>
-</div>
