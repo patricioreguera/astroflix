@@ -1,0 +1,30 @@
+---
+/* import NavButton from "./NavButton.astro"; */
+import { Counter } from "./Counter";
+---
+
+<!-- //transition:persist hace que guarde el estado mientras va navegando -->
+<header
+	transition:persist
+	class="bg-[#0f0f0f] grid grid-cols-2 py-2 items-center"
+>
+	<h2
+		class="px-5 text-xl font-semibold tracking-tight min-w-full text-nowrap text-white"
+	>
+		AstroFlix
+	</h2>
+	<div class="lg:hidden flex justify-end items-center m-1">
+		<a class="hover:bg-slate-600 px-4 py-1 rounded-lg"
+			><span class="flex rotate-90">|||</span></a
+		>
+	</div>
+
+	<div class="hidden lg:flex justify-end m-5 items-center gap-5">
+		<nav class="flex flex-col text-center md:flex-row gap-2">
+			<!-- <NavButton href="">Home</NavButton>
+			<NavButton href="">Projects</NavButton>
+			<NavButton href="">About this Site</NavButton> -->
+		</nav>
+		<Counter client:visible />
+	</div>
+</header>

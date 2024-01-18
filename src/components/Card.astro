@@ -1,28 +1,26 @@
 ---
 import type { Movie } from "../interfaces/movies_interface";
 import Demo from "./Demo";
-import AddButton from "./AddButton.astro";
 interface Props {
 	movie: Movie;
 }
 
 const { movie } = Astro.props;
-const movieURL = `https://image.tmdb.org/t/p/w500/${movie?.poster_path}`;
 ---
 
 <li
 	class="rounded-lg bg-neutral-900 text-neutral-300 shadow-xl hover:bg-neutral-900/70 transition-all duration-200 flex flex-col gap-4 backdrop-blur-2xl"
 >
 	<img
-		src={movieURL}
-		alt={movie.overview}
+		src={movie.poster}
+		alt={movie.title}
 		class="rounded-md aspect-[9/13] object-cover"
 	/>
 	<h2 class="text-xl font-bold">
 		{movie.title}
 	</h2>
 	<p>
-		{movie.overview.slice(0, 100)}...
+		{movie.description.slice(0, 100)}...
 	</p>
 	<Demo client:visible movie={movie} />
 </li>

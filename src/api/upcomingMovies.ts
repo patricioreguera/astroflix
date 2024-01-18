@@ -1,4 +1,5 @@
-import type { Movie, Movies } from "../interfaces/movies_interface";
+import type {  Movies } from "../interfaces/movies_interface";
+import {apiInterceptor} from "../interceptors/apiResult.interceptor"
 
 const bearerKey: string = import.meta.env.BEARER_KEY;
 
@@ -10,14 +11,18 @@ const options = {
   },
 };
 
-export async function getMovies() {
+
+
+export async function getMovies(page:number) {
   const response = await fetch(
-    "https://api.themoviedb.org/3/movie/upcoming?language=es-ES&page=1",
+    `https://api.themoviedb.org/3/movie/upcoming?language=es-ES&page=${page}`,
+
     options
   );
 
   const movies: Movies = await response.json();
-  return movies?.results as Movie[];
+  const formatApiResponse = (apiInterceptor(movies))
+  return formatApiResponse
 
   
 }

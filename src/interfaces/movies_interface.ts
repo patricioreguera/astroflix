@@ -1,7 +1,7 @@
-export interface Movies {
+export interface MoviesAPI {
     dates: Dates;
     page: number;
-    results: Movie[];
+    results: MovieAPI[];
     total_pages: number;
     total_results: number;
   }
@@ -11,7 +11,22 @@ export interface Movies {
     minimum: Date;
   }
   
+  export interface Movies {
+    dates: Dates;
+    page: number,
+		results: Movie[],
+		pages: number,
+		total_results: number,
+
+  }
   export interface Movie {
+    backdrop: string,
+		title: string,
+		description: string,
+		poster: string
+
+  }
+  export interface MovieAPI {
     adult: boolean;
     backdrop_path: string;
     genre_ids: number[];
