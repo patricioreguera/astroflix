@@ -20,6 +20,7 @@ export interface MoviesAPI {
 
   }
   export interface Movie {
+    id:number,
     backdrop: string,
 		title: string,
 		description: string,
