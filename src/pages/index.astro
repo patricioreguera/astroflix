@@ -2,14 +2,19 @@
 import type { Movie } from "../interfaces/movies_interface";
 import Layout from "../layouts/Layout.astro";
 import Card from "../components/Card.astro";
-import { getMovies } from "../api/upcomingMovies";
+const { id } = Astro.params;
+/* import { getMovies } from "../api/upcomingMovies";
 
-const movies = await getMovies(1);
+const movies = await getMovies(1); */
+import { useFetch } from "../utils/useFetch";
+
+const { movies } = await useFetch(id || 1);
+console.log(id);
 ---
 
 <Layout title="Welcome to Astro.">
 	<header class="py-8"></header>
-
+	<h3 class="text-gray-50 text-3xl">casass{id}</h3>
 	<main class="container mx-auto">
 		<ul role="list" class="grid lg:grid-cols-5 grid-cols-2 gap-4">
 			{movies?.results.map((movie: Movie) => <Card movie={movie} />)}

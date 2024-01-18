@@ -1,6 +1,5 @@
 ---
 /* import NavButton from "./NavButton.astro"; */
-import { Counter } from "./Counter";
 ---
 
 <!-- //transition:persist hace que guarde el estado mientras va navegando -->
@@ -20,11 +19,6 @@ import { Counter } from "./Counter";
 	</div>
 
 	<div class="hidden lg:flex justify-end m-5 items-center gap-5">
-		<nav class="flex flex-col text-center md:flex-row gap-2">
-			<!-- <NavButton href="">Home</NavButton>
-			<NavButton href="">Projects</NavButton>
-			<NavButton href="">About this Site</NavButton> -->
-		</nav>
-		<Counter client:visible />
+		<nav class="flex flex-col text-center md:flex-row gap-2"></nav>
 	</div>
 </header>

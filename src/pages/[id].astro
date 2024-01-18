@@ -1,0 +1,36 @@
+---
+/* import Layout from "../../layouts/Layout.astro";
+import { Projects } from "../../mocks/projects.json"; */
+//Esta funcion recorre todos los ids y genera ya todas las rutas!
+import Layout from "../layouts/Layout.astro";
+import { useFetch } from "../utils/useFetch";
+import type { Movie } from "../interfaces/movies_interface";
+import Card from "../components/Card.astro";
+
+const { id } = Astro.params;
+const { movies } = await useFetch(id || 1);
+
+console.log(movies.pages);
+
+export function getStaticPaths() {
+	const Projects = ["1", "2", "3", "4"];
+	const result = Projects.map((project) => {
+		return {
+			params: {
+				id: project,
+			},
+		};
+	});
+	return result;
+}
+---
+
+<Layout title="Welcome to Astro.">
+	<header class="py-8"></header>
+	<h3 class="text-gray-50 text-3xl">casass{id}</h3>
+	<main class="container mx-auto">
+		<ul role="list" class="grid lg:grid-cols-5 grid-cols-2 gap-4">
+			{movies?.results.map((movie: Movie) => <Card movie={movie} />)}
+		</ul>
+	</main>
+</Layout>

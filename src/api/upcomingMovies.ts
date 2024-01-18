@@ -14,8 +14,11 @@ const options = {
 
 
 export async function getMovies(page:number) {
+  
+
   const response = await fetch(
     `https://api.themoviedb.org/3/movie/upcoming?language=es-ES&page=${page}`,
+/*     `https://api.themoviedb.org/3/movie/upcoming?language=es-ES&page=${page}`, */
 
     options
   );

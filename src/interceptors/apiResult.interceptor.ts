@@ -1,4 +1,5 @@
 export const apiInterceptor = (response: any) => {
+
 	const newResults = response.results
 	//Filtra los resultados primero para asegurarnos que tenga poster
 	  .filter((result: any) =>  result.poster_path )
@@ -9,6 +10,7 @@ export const apiInterceptor = (response: any) => {
 		description: result.overview,
 		poster: result.poster_path &&`https://image.tmdb.org/t/p/original${result.poster_path}` ,
 	  }));
+	 
 	return{
 	  dates: response.dates,
 	  page: response.page,

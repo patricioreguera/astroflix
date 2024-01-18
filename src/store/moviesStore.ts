@@ -5,4 +5,6 @@ export const useMoviesStore = create((set): any => ({
 	setPage: (page:number)=> set({page}),
 	favoritesMovies: [],
 	setFavoritesMovies: (favoritesMovies:[]) => set({ favoritesMovies }),
+	movies:{},
+	setMovies:(movies:{})=> set({movies})
 }));
